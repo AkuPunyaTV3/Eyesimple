@@ -14,4 +14,11 @@ class Pets_names extends Model
     protected $fillable = [
         'id','name',
     ];
+
+    public function pets()
+    {
+        return $this->hasMany('App\Pets_names','name_id','id');        
+    }
+
+    
 }

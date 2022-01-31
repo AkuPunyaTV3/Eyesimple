@@ -65,9 +65,17 @@ Route::get('/species', 'PetsController@index_species')->name('species');
 Route::get('/pets/users', 'PetsController@index_users')->name('pets.users');
 
 
-//Add
+//Add PETS
 Route::get('/pets/create', 'PetsController@create')->name('pets.create');
 Route::post('/pets/store', 'PetsController@store')->name('pets.store');
+
+//ADD Species
+Route::get('/pets/create_species', 'PetsController@create_species')->name('pets.create_species');
+Route::post('/pets/store_species', 'PetsController@store_species')->name('pets.store_species');
+
+//ADD PET NAMES
+Route::get('/pets/create_petnames', 'PetsController@create_petnames')->name('pets.create_petsname');
+Route::post('/pets/store_petnames', 'PetsController@store_petnames')->name('pets.store_petsname');
 
 
 

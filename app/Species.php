@@ -14,4 +14,9 @@ class Species extends Model
     protected $fillable = [
         'id','name',
     ];
+
+    public function pets()
+    {
+        return $this->hasMany('App');         
+    }
 }

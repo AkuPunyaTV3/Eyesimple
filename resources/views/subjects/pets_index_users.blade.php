@@ -8,15 +8,21 @@
 
 
 {{-- Tombol Tombol --}}
-<div class='actionbutton'>                        
-    <a class='btn btn-info float-left' href="{{route('pets')}}" style="margin-right:10%; ">Pets</a>                                              
-    <a class='btn btn-info float-left' href="{{route('petsname')}}" style="margin-right:10%; ">Petsname</a>                               
-    <a class='btn btn-info float-left' href="{{route('species')}}" style="margin-right:10%; ">Species</a>                        
+<div class='actionbutton'>    
+    {{-- List --}}
+    <a class='btn btn-info float-left' href="{{route('pets')}}" style="margin-right:5%; ">Pets</a>                                              
+    <a class='btn btn-info float-left' href="{{route('petsname')}}" style="margin-right:5%; ">Petsname</a>                               
+    <a class='btn btn-info float-left' href="{{route('species')}}" style="margin-right:5%; ">Species</a>                      
+                      
+    {{-- ADD --}}
+    <a class='btn btn-info float-right' href="{{route('pets.create')}}" style="margin-right: ">Add Pets</a>                                               
+    <a class='btn btn-info float-right' href="{{route('pets.create_species')}}" style="margin-right:5% ">Add Species</a>                        
+    <a class='btn btn-info float-right' href="{{route('pets.create_petsname')}}" style="margin-right:5% ">Add Petsname</a>                        
 </div>
 
 {{-- JUDUL --}}
 <div style="margin-left: 20px;">    
-    <h3>&nbsp;Pets List (INDEX USER)</h3>
+    <br><h3>&nbsp;Pets List (INDEX USER)</h3><br>
 </div>
    
 <div class="row">
@@ -28,21 +34,17 @@
             {{ Session::get('message') }}
         </div>
         @endif
-
         
         <!-- Alert message (end) -->
-           
-        <div class='actionbutton'>                        
-            <a class='btn btn-info float-right' href="{{route('pets.create')}}" style="margin-right: ">Add Pets</a>                        
-        </div>
-
+       
         <table class="table" >
             <thead>
                 <tr>                    
-                    <th width='25%'>User</th>            
-                    <th width='25%'>Name</th>   
-                    <th width='25%'>Spesies</th>   
-                    <th width='25%'>DOB</th>   
+                    <th width='20%'>User</th>            
+                    <th width='20%'>Name</th>   
+                    <th width='20%'>Spesies</th>   
+                    <th width='20%'>DOB</th>  
+                    <th width='20%'>Action</th> 
                 </tr>
             </thead>
             
@@ -65,6 +67,12 @@
                     </td>                   
                     <td>                   
                         {{ $pets1->pet_names }}                      
+                    </td>  
+                    <td>
+                        <!-- Edit -->                        
+                        <a style="" href="" class="btn btn-sm btn-info">Edit</a>
+                        <!-- Delete -->
+                        <a href="" class="btn btn-sm btn-danger">Delete</a>
                     </td>           
                 </tr>
             @endforeach
@@ -79,10 +87,11 @@
         <table class="table" >
             <thead>
                 <tr>                    
-                    <th width='25%'>Pets Name</th>            
-                    <th width='25%'>Spesies</th>   
-                    <th width='25%'>Users</th>   
-                    <th width='25%'>DOB</th>   
+                    <th width='20%'>Pets Name</th>            
+                    <th width='20%'>Spesies</th>   
+                    <th width='20%'>Users</th>   
+                    <th width='20%'>DOB</th>
+                    <th width='20%'>Action</th>   
                 </tr>
             </thead>
             
@@ -95,13 +104,19 @@
                     <td>                    
                         {{ $pets2->user_id }}                      
                     </td>
-
+                    
                     <td>                    
                         {{ $pets2->species_id }}                      
                     </td>                   
                     <td>                   
                         {{ $pets2->pet_names }}                      
-                    </td>           
+                    </td>    
+                    <td>
+                        <!-- Edit -->                        
+                        <a style="" href="" class="btn btn-sm btn-info">Edit</a>
+                        <!-- Delete -->
+                        <a href="" class="btn btn-sm btn-danger">Delete</a>
+                    </td>  
                 </tr>
             @endforeach
             </tbody>

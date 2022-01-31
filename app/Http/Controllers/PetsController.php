@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
+use App\User;
 use App\Pets;
 use App\Pets_names;
 use App\Species;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Session;
 
 class PetsController extends Controller
 {
@@ -16,8 +20,10 @@ class PetsController extends Controller
      */
     public function index()
     {
-        $pets = Pets::select('id','dob','user_id','species_id' ,'pet_names',)->get(); 
-		return view('subjects.pets_index')->with('pets',$pets);
+        $pets = Pets::select('id','dob','user_id','species_id' ,'name_id',)->get(); 
+        $species = Species::select('id','name',)->get();  
+        $users = User::select('id','name', 'email', 'password','description',)->get();  
+		return view('subjects.pets_index')->with('pets',$pets)->with('species',$species)->with('users',$users);
     }
 
     public function index_petsname()
@@ -29,12 +35,13 @@ class PetsController extends Controller
     public function index_species()
     {
         $pets = Species::select('id','name',)->get();  
+        
 		return view('subjects.pets_index_species')->with('pets',$pets);
     }
 
     public function index_users()
     {
-        $pets = Species::select('id','name',)->get();  
+        $pets = Pets::select('id','dob','user_id','species_id' ,'name_id',)->get();  
 		return view('subjects.pets_index_users')->with('pets',$pets);
     }
     
@@ -45,36 +52,22 @@ class PetsController extends Controller
      */
     public function create()
     {
-        // $pets = Pets::select('dob','user_id','species_id','name_id')->get();  
         $species = Species::select('id','name',)->get();  
-        
-
-        return view('subjects.pets_add')->with('species',$species);
+        $users = User::select('id','name', 'email', 'password','description',)->get();  
+        // dd ($users);
+        return view('subjects.pets_add')->with('species',$species)->with('users',$users);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $data= Roles::create($data);  
-            
+        $data = $request->except('_method','_token','submit');          
         // dd ($data);
-            
-            // $baru->roles()->sync($data['user']);  
-        if(
-            
-            // $baru
-            
-            $request->create($data)
-            ){
-            // $baru->users()->sync($data['user']);  
+        $data= Pets::create($data);     
+        if($request->create($data)){   
+                       
             Session::flash('message', 'Added Successfully!');
             Session::flash('alert-class', 'alert-success');
-            return redirect()->route('roles.role');
+            return redirect()->route('pets');
         }else{
             Session::flash('message', 'Data not saved!');
             Session::flash('alert-class', 'alert-danger');
@@ -82,12 +75,52 @@ class PetsController extends Controller
         return Back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //ADD species
+    public function create_species()
+    {
+        $species = Species::select('id','name',)->get();  
+        return view('subjects.pets_add_species')->with('species',$species);
+    }
+
+    public function store_species(Request $request)
+    {
+        $data = $request->except('_method','_token','submit');          
+        $data= Species::create($data);     
+        if($request->create($data)){            
+            Session::flash('message', 'Added Successfully!');
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('species');
+        }else{
+            Session::flash('message', 'Data not saved!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+        return Back();
+    }
+
+    //ADD Petnames
+    public function create_petnames()
+    {
+        $species = Pets_names::select('id','name',)->get();  
+        return view('subjects.pets_add_petsname')->with('petsnames',$species);
+    }
+
+    public function store_petnames(Request $request)
+    {
+        $data = $request->except('_method','_token','submit');          
+        $data= Pets_names::create($data);  
+        dd ($data)   ;
+        if($request->create($data)){            
+            Session::flash('message', 'Added Successfully!');
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('species');
+        }else{
+            Session::flash('message', 'Data not saved!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+        return Back();
+    }
+
+
     public function show($id)
     {
         //

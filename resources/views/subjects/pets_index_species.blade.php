@@ -8,15 +8,21 @@
 
 
 {{-- Tombol Tombol --}}
-<div class='actionbutton'>                        
-    <a class='btn btn-info float-left' href="{{route('pets')}}" style="margin-right:10%; ">Pets</a>                                              
-    <a class='btn btn-info float-left' href="{{route('petsname')}}" style="margin-right:10%; ">Petsname</a>                               
-    <a class='btn btn-info float-left' href="{{route('species')}}" style="margin-right:10%; ">Species</a>                        
+<div class='actionbutton'>    
+    {{-- List --}}
+    <a class='btn btn-info float-left' href="{{route('pets')}}" style="margin-right:5%; ">Pets</a>                                              
+    <a class='btn btn-info float-left' href="{{route('petsname')}}" style="margin-right:5%; ">Petsname</a>                               
+    <a class='btn btn-info float-left' href="{{route('species')}}" style="margin-right:5%; ">Species</a>                      
+                      
+    {{-- ADD --}}
+    <a class='btn btn-info float-right' href="{{route('pets.create')}}" style="margin-right: ">Add Pets</a>                                               
+    <a class='btn btn-info float-right' href="{{route('pets.create_species')}}" style="margin-right:5% ">Add Species</a>                        
+    <a class='btn btn-info float-right' href="{{route('pets.create_petsname')}}" style="margin-right:5% ">Add Petsname</a>                        
 </div>
 
 {{-- JUDUL --}}
 <div style="margin-left: 20px;">    
-    <h3>&nbsp;Pets List</h3>
+    <br><h3>&nbsp;Pets List</h3><br>
 </div>
    
 <div class="row">
@@ -32,18 +38,13 @@
         
         <!-- Alert message (end) -->
            
-        <div class='actionbutton'>                        
-            <a class='btn btn-info float-right' href="{{route('pets.create')}}" style="margin-right: ">Add Pets</a>                        
-        </div>
-
-        
-        
         <table class="table" >
             <thead>
                 <tr>
                     {{-- <th width='20%'>ID</th> --}}
                     <th width='25%'>ID</th>            
-                    <th width='25%'>Name</th>      
+                    <th width='25%'>Name</th>  
+                    <th width='25%'>Action</th>    
                 </tr>
             </thead>
             
@@ -60,6 +61,12 @@
                     <td>                    
                         {{ $pets->name }}                      
                     </td>
+                    <td>
+                        <!-- Edit -->                        
+                        <a style="" href="" class="btn btn-sm btn-info">Edit</a>
+                        <!-- Delete -->
+                        <a href="" class="btn btn-sm btn-danger">Delete</a>
+                    </td>  
                 </tr>
             @endforeach
             </tbody>
