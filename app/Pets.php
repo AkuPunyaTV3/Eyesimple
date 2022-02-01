@@ -17,16 +17,16 @@ class Pets extends Model
 
     public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','user_id','id');
     }
 
     public function species()
     {
-        return $this->belongsTo('App\Species');
+        return $this->belongsTo('App\Species','species_id','id');
     }
 
     public function names()
     {
-        return $this->belongsTo('App\Pets_names');
+        return $this->belongsTo('App\Pets_names','name_id','id');
     }
 }

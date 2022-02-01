@@ -56,17 +56,17 @@
              @endphp
                 <tr>                  
                     <td>                        
-                        {{ $pets1->dob }}                        
+                        {{ $pets1->users->name }}                        
                     </td>
                     <td>                    
-                        {{ $pets1->user_id }}                      
+                        {{ $pets1->names->name }}                      
                     </td>
 
                     <td>                    
-                        {{ $pets1->species_id }}                      
+                        {{ $pets1->species->name }}                      
                     </td>                   
                     <td>                   
-                        {{ $pets1->pet_names }}                      
+                        {{ $pets1->dob }}                      
                     </td>  
                     <td>
                         <!-- Edit -->                        
@@ -99,17 +99,17 @@
             @foreach($pets as $pets2)            
                 <tr>                  
                     <td>                        
-                        {{ $pets2->dob }}                        
+                        {{ $pets2->names->name }}                      
                     </td>
                     <td>                    
-                        {{ $pets2->user_id }}                      
+                        {{ $pets2->species->name }} 
                     </td>
                     
                     <td>                    
-                        {{ $pets2->species_id }}                      
+                        {{ $pets2->users->name }}                      
                     </td>                   
                     <td>                   
-                        {{ $pets2->pet_names }}                      
+                        {{ $pets2->dob }}                      
                     </td>    
                     <td>
                         <!-- Edit -->                        

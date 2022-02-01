@@ -59,7 +59,7 @@
             @foreach($pets as $pets)
             
             @php 
-            //  dd ($pets->users);
+            //  dd ($pets);
              @endphp
                 <tr>                  
                     <td>                        
@@ -67,14 +67,14 @@
                     </td>
                     <td>               
                         
-                        {{-- {{ $pets->users->name }}                       --}}
+                        {{ $pets->users->name}}                      
                     </td>
 
                     <td>                    
-                        {{ $pets->species->name }}                      
+                        {{ $pets->species->name}}                      
                     </td>                   
                     <td>                   
-                        {{-- {{ $pets->names->name }}                       --}}
+                        {{ $pets->names->name}}                      
                     </td>  
                     <td>
                         <!-- Edit -->                        

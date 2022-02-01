@@ -20,10 +20,10 @@ class PetsController extends Controller
      */
     public function index()
     {
-        $pets = Pets::select('id','dob','user_id','species_id' ,'name_id',)->get(); 
-        $species = Species::select('id','name',)->get();  
-        $users = User::select('id','name', 'email', 'password','description',)->get();  
-		return view('subjects.pets_index')->with('pets',$pets)->with('species',$species)->with('users',$users);
+        $pets = Pets::select('id','dob','user_id','species_id','name_id',)->get(); 
+        // $species = Species::select('id','name',)->get();  
+        // $users = User::select('id','name', 'email', 'password','description',)->get();  
+		return view('subjects.pets_index')->with('pets',$pets);
     }
 
     public function index_petsname()
@@ -53,9 +53,10 @@ class PetsController extends Controller
     public function create()
     {
         $species = Species::select('id','name',)->get();  
+        $petsnames = Pets_names::select('id','name',)->get();  
         $users = User::select('id','name', 'email', 'password','description',)->get();  
         // dd ($users);
-        return view('subjects.pets_add')->with('species',$species)->with('users',$users);
+        return view('subjects.pets_add')->with('species',$species)->with('users',$users)->with('petsnames',$petsnames);
     }
 
     public function store(Request $request)

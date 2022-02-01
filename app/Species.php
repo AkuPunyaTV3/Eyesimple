@@ -17,6 +17,6 @@ class Species extends Model
 
     public function pets()
     {
-        return $this->hasMany('App');         
+        return $this->hasMany('App\Pets');         
     }
 }

@@ -41,12 +41,19 @@
             <br>
             {{-- Pet Name --}}
             <label class="control-label col-md-6 col-sm-6 col-xs-12" for="role">Pet Name<span
-                class="required"></span></label>            
-            <input id="role" class="form-control col-md-6 col-sm-6 col-xs-12" name="name_id" placeholder="Enter Pet Name"
-                required="required" type="text">
-            <br>
+                class="required"></span></label><br>              
+            {{-- <input id="role" class="form-control col-md-6 col-sm-6 col-xs-12" name="species" placeholder="Enter Species"
+                required="required" type="text"> --}}
+
+                @foreach($petsnames as $petsnames)
+                {{-- @php dd ($species) @endphp--}}
+                <input  type="radio" id="{{ $petsnames->id }}" value="{{ $petsnames->id }}" name="name_id" >                                    
+                {{ $petsnames->name}}   <br>      
+                    
+                @endforeach
 
             {{-- Species --}}
+            <br>  
             <label class="control-label col-md-6 col-sm-6 col-xs-12" for="role">Species<span
                 class="required"></span></label><br>              
             {{-- <input id="role" class="form-control col-md-6 col-sm-6 col-xs-12" name="species" placeholder="Enter Species"

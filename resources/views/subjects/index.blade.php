@@ -40,7 +40,7 @@
                 <tr>
                     <th width='20%'>Name</th>
                     <th width='20%'>Email</th>
-                    <th width='20%'>Roles</th>
+                    <th width='20%'>Roles</th>                
                     <th width='20%'>Description</th>                    
                     <th width='20%'>Actions</th>          
                 
@@ -72,8 +72,8 @@
                     
                     </td>
 
-                    <td>{{ $subject->description }}</td>    
-                                        
+                    <td>{{ $subject->description }}</td>                        
+                    
                     <td>
                         <!-- Edit -->                        
                         <a style="" href="{{ route('subjects.edit',[$subject->id]) }}" class="btn btn-sm btn-info">Edit</a>
@@ -81,9 +81,47 @@
                         <a href="{{ route('subjects.delete',$subject->id) }}" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
+                <tr>
+                    <thead>
+                    <th width='20%'>Pet Names</th>  
+                    <th width='20%'>Species</th> 
+                    <th width='20%'>Dob</th>  
+                    </thead>
+                    
+                    <tbody>
+                    
+                    <td>
+                        @foreach ($subject->pets as $pets)                        
+                        - {{ $pets->names->name}}   <br>                        
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($subject->pets as $pets)                        
+                        - {{ $pets->species->name}}   <br>
+                        @endforeach
+                    </td>
+                        
+                    <td>
+                        @foreach ($subject->pets as $pets)                        
+                        - {{ $pets->dob}}   <br>
+                        @endforeach
+                    </td>
+                    
+                    </tbody>
+                        
+
+                    
+                </tr>
+                <tr>
+               
+                </tr>
+                
             @endforeach
             </tbody>
         </table>
+
+
+        
             
     </div>
 </div>
