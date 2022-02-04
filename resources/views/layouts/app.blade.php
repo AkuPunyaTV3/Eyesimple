@@ -55,6 +55,12 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('html_tugas') }}">{{ __('HTML') }}</a>
+                            </li>  
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('html') }}">{{ __('Coba') }}</a>
+                            </li>  
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pets.users') }}">{{ __('Pets') }}</a>
                             </li>  
                             <li class="nav-item">

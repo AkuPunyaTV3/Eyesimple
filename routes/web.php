@@ -63,6 +63,10 @@ Route::get('/petsname', 'PetsController@index_petsname')->name('petsname');
 Route::get('/species', 'PetsController@index_species')->name('species');
 //Pets User LIST
 Route::get('/pets/users', 'PetsController@index_users')->name('pets.users');
+//HTML Coba
+Route::get('/HTML', 'HTMLController@index')->name('html');
+//HTML Tugas
+Route::get('/HTML/tugas', 'HTMLController@index_tugas')->name('html_tugas');
 
 
 //Add PETS

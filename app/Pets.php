@@ -15,6 +15,10 @@ class Pets extends Model
         'id','dob','user_id','species_id' ,'name_id',
     ];
 
+
+
+    //Penulisan nama function harusnya singular/ satuan 
+
     public function users()
     {
         return $this->belongsTo('App\User','user_id','id');
