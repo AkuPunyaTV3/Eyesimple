@@ -3,9 +3,29 @@
 @extends('layouts.app')
 
 <!-- Specify content -->
-@section('content')
+@section('script')
+<script>
+    $(document).ready( function () {
+    $('#example').DataTable({
+        serverSide: true,
+        ajax: {
+            'url': 'pets_datatable',
+            'type': 'POST',
+            'data':{_token:"{{ csrf_token()}}"},
+        },
+        columns:[
+            {"data":"Dob"},
+            {"data":"User_ID"},
+            {"data":"Species_ID"},
+            {"data":"Names_ID"},
+            {"data":"Action"},               
+        ],
+    });
+} );
+</script>
+@endsection
 
-
+@section('content') 
 
 {{-- Tombol Tombol --}}
 <div class='actionbutton'>    
@@ -34,15 +54,8 @@
             {{ Session::get('message') }}
         </div>
         @endif
-
-        
-        <!-- Alert message (end) -->
-           
-       
-
-        
-        
-        <table class="table" >
+            
+        <table id="example" >
             <thead>
                 <tr>
                     {{-- <th width='20%'>ID</th> --}}
@@ -54,9 +67,8 @@
                 </tr>
             </thead>
             
-            <tbody>
-                
-            @foreach($pets as $pets)
+            <tbody>                
+            {{-- @foreach($pets as $pets)
             
             @php 
             //  dd ($pets);
@@ -65,8 +77,7 @@
                     <td>                        
                         {{ $pets->dob }}                        
                     </td>
-                    <td>               
-                        
+                    <td>                              
                         {{ $pets->users->name}}                      
                     </td>
 
@@ -81,13 +92,14 @@
                         <a style="" href="" class="btn btn-sm btn-info">Edit</a>
                         <!-- Delete -->
                         <a href="" class="btn btn-sm btn-danger">Delete</a>
-                    </td>                
-  
+                    </td>                  
                 </tr>
-            @endforeach
+            @endforeach --}}
             </tbody>
         </table>
             
     </div>
 </div>
-@stop
+
+@endsection
+

@@ -81,6 +81,9 @@ Route::post('/pets/store_species', 'PetsController@store_species')->name('pets.s
 Route::get('/pets/create_petnames', 'PetsController@create_petnames')->name('pets.create_petsname');
 Route::post('/pets/store_petnames', 'PetsController@store_petnames')->name('pets.store_petsname');
 
+//DATA TABLE
+Route::post('pets_datatable', 'PetsController@pets_datatable')->name('pets_datatable');
+
 
 
 Auth::routes();
