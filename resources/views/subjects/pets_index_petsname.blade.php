@@ -2,7 +2,28 @@
 
 @extends('layouts.app')
 
-<!-- Specify content -->
+
+<!-- Script -->
+@section('script')
+<script>
+    $(document).ready( function () {
+    $('#example').DataTable({
+        serverSide: true,
+        ajax: {
+            'url': 'pets_datatable_petsname',
+            'type': 'POST',
+            'data':{_token:"{{ csrf_token()}}"},
+        },
+        columns:[
+            {"data":"Id"},
+            {"data":"Name"},            
+            {"data":"Action"},               
+        ],
+    });
+} );
+</script>
+@endsection
+
 @section('content')
 
 
@@ -35,7 +56,7 @@
         </div>
         @endif
 
-        <table class="table" >
+        <table id=example >
             <thead>
                 <tr>
                     {{-- <th width='20%'>ID</th> --}}
@@ -49,7 +70,7 @@
             
             <tbody>
                 
-            @foreach($pets as $pets)
+            {{-- @foreach($pets as $pets)
             @php 
             // dd ($pets);
              @endphp
@@ -68,11 +89,11 @@
                     </td>           
                 </tr>
                 
-            @endforeach
+            @endforeach --}}
          
             </tbody>
         </table>
             
     </div>
 </div>
-@stop
+@endsection

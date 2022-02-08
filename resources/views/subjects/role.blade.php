@@ -2,7 +2,25 @@
 
 @extends('layouts.app')
 
-<!-- Specify content -->
+@section('script')
+<script>
+    $(document).ready( function () {
+    $('#example').DataTable({
+        serverSide: true,
+        ajax: {
+            'url': 'roles_datatable',
+            'type': 'POST',
+            'data':{_token:"{{ csrf_token()}}"},
+        },
+        columns:[
+            {"data":"Roles"},
+            {"data":"User"},            
+            {"data":"Action"},               
+        ],
+    });
+} );
+</script>
+@endsection
 @section('content')
 
 
@@ -29,7 +47,7 @@
             <a class='btn btn-info float-right' href="{{route('roles.add_role')}}" style="margin-right: ">Add Role</a>                        
         </div>
         
-        <table class="table" >
+        <table id="example" >
             <thead>
                 <tr>
 
@@ -40,38 +58,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($roles as $roles)
-                <tr>         
-                
-                    
-                    {{-- <td>
-                        @foreach ($roles as $roles)
-                            {{ $roles->id }}  
-                        @endforeach
-                        </td> --}}
-                    {{-- <td>                    
-                        {{ $roles->id }}                      
-                    </td> --}}
-
+                {{-- @foreach($roles as $roles)
+                <tr>       
+                                   
                     <td>                    
                         {{ $roles->name }}                      
-                    </td>
-
+                    </td>             
+                   
                     
-                    {{-- @php 
-                        dd ($roles->users)
-                    @endphp --}}
-                    
-                    <td>    
-
-                        @foreach ($roles->users as $subjects)
+                    <td>     @foreach ($roles->users as $subjects)
                         {{ $subjects->name }},                   
                         
-                    @endforeach
-                    
+                    @endforeach     
                     
                     </td>
-
                     
                                         
                     <td>
@@ -81,10 +81,10 @@
                         <a href="{{ route('roles.delete',$roles->id) }}" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
-            @endforeach
+                @endforeach --}}
             </tbody>
         </table>
             
     </div>
 </div>
-@stop
+@endsection

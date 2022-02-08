@@ -5,15 +5,7 @@
 <!-- Specify content -->
 @section('content')
 
-<script>
-$(document).ready(function() {
-    $('#example').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        "ajax": "../server_side/scripts/server_processing.php"
-    } );
-} );
-</script>
+
 
 <div style="margin-left: 20px;">
     
@@ -44,14 +36,17 @@ $(document).ready(function() {
         </div>
 
 
-        <table class="example" >
+        <table class="table" >
             <thead>
                 <tr>
-                    <th width='20%'>Name</th>
-                    <th width='20%'>Email</th>
-                    <th width='20%'>Roles</th>                
-                    <th width='20%'>Description</th>                    
-                    <th width='20%'>Actions</th>          
+                    <th width='10%'>Name</th>
+                    <th width='10%'>Email</th>
+                    <th width='10%'>Roles</th>                
+                    <th width='10%'>Description</th>
+                    <th width='10%'>Pet Names</th>  
+                    <th width='10%'>Species</th> 
+                    <th width='10%'>Dob</th>                     
+                    <th width='10%'>Actions</th>          
                 
                 </tr>
             </thead>
@@ -83,6 +78,23 @@ $(document).ready(function() {
 
                     <td>{{ $subject->description }}</td>                        
                     
+                   
+                    <td>
+                        @foreach ($subject->pets as $pets)                        
+                        - {{ $pets->names->name}}   <br>                        
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($subject->pets as $pets)                        
+                        - {{ $pets->species->name}}   <br>
+                        @endforeach
+                    </td>
+                        
+                    <td>
+                        @foreach ($subject->pets as $pets)                        
+                        - {{ $pets->dob}}   <br>
+                        @endforeach
+                    </td>
                     <td>
                         <!-- Edit -->                        
                         <a style="" href="{{ route('subjects.edit',[$subject->id]) }}" class="btn btn-sm btn-info">Edit</a>
@@ -91,7 +103,7 @@ $(document).ready(function() {
                     </td>
                 </tr>
                 <tr>
-                    <thead>
+                    {{-- <thead>
                     <th width='20%'>Pet Names</th>  
                     <th width='20%'>Species</th> 
                     <th width='20%'>Dob</th>  
@@ -117,7 +129,7 @@ $(document).ready(function() {
                     </td>
                     
                     </tbody>
-                        
+                         --}}
 
                     
                 </tr>

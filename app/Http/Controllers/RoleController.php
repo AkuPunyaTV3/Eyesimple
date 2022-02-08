@@ -94,4 +94,70 @@ class RoleController extends Controller
         Session::flash('alert-class', 'alert-success');
         return redirect()->route('roles.role');
     }
+
+    public function roles_datatable(Request $request)
+    {           
+        $column = array(
+            0=>'Roles',
+            1=>'User',            
+            2=>'Action',          
+        );        
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $search = $request->input('search.value');
+        $order = $column[$request->input('order.0.column')];
+        $dir   = $request->input('order.0.dir');
+        $draw = $request->input('draw');
+
+        // $data = $pets = Pets::select('id','dob','user_id','species_id','name_id',); 
+        $data = $roles = Roles::select('id','name',);         
+        $totalData = $data->count();
+        $totalFiltered = $totalData;
+
+        if (isset($search)) {               
+            $data->orWhere('name','LIKE',"%{$search}%");
+            $totalFiltered = $data->count();
+        }
+
+        $data = $data->offset($start)
+        ->limit($limit)
+        ->get();
+
+        $array = [];
+        // foreach ($data as $item) {
+        //     $array['customer'] = $transaction->user->first_name.' '.$transaction->user->last_name;
+        //     $action = '';
+        //     if () {
+        //         $action .= '<a href="'.asset('storage/'.$file->file_location).'" download>Download</a>';
+        //     }
+        //     $array['action'] = $action;
+        // }
+
+        foreach ($data as $roles) {
+            
+            $nestedData['Roles']=$roles->name;   
+
+            $count = 0;
+            foreach ($roles->users as $subjects)
+                    {
+                        
+                        $nestedData['User'][$count++]=$subjects->name;
+                    }
+
+            $nestedData['Action']="
+            <a style='' href='' class='btn btn-sm btn-info'>Edit</a>                        
+            <a href='' class='btn btn-sm btn-danger'>Delete</a>
+            ";
+            $array[]=$nestedData;       
+        }
+        // ini juga fix
+        $json_data = [
+            'draw' => intval($draw),
+            'recordsTotal' => intval($totalData),
+            'recordsFiltered' => intval($totalFiltered),
+            'data' => $array,            
+        ];
+        // ini juga fix
+        return json_encode($json_data);
+    }
 }

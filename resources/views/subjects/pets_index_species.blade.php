@@ -2,9 +2,33 @@
 
 @extends('layouts.app')
 
-<!-- Specify content -->
-@section('content')
+<!-- Script -->
+@section('script')
+<script>
+    $(document).ready( function () {
+    $('#example').DataTable({
+        serverSide: true,
+        ajax: {
+            'url': 'pets_datatable_species',
+            'type': 'POST',
+            'data':{_token:"{{ csrf_token()}}"},
+        },
+        columns:[
+            {"data":"Id"},
+            {"data":"Name"},            
+            {"data":"Action"},               
+        ],      
 
+    });
+
+    $("#example_filter.dataTables_filter").append($("#categoryfilter"));
+} );
+</script>
+@endsection
+
+
+
+@section('content')
 
 
 {{-- Tombol Tombol --}}
@@ -37,8 +61,16 @@
 
         
         <!-- Alert message (end) -->
-           
-        <table class="table" >
+        <div class="category-filter">
+            <select id="categoryfilter" class="form-control">
+                <option value="">Show All</option>
+                @foreach ($pets as $pets)
+                    <option value="{{ $pets->name }}">{{ $pets->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        
+        <table id="example" >
             <thead>
                 <tr>
                     {{-- <th width='20%'>ID</th> --}}
@@ -50,7 +82,7 @@
             
             <tbody>
                 
-            @foreach($pets as $pets)
+            {{-- @foreach($pets as $pets)
             @php 
             // dd ($pets);
              @endphp
@@ -68,10 +100,10 @@
                         <a href="" class="btn btn-sm btn-danger">Delete</a>
                     </td>  
                 </tr>
-            @endforeach
+            @endforeach --}}
             </tbody>
         </table>
             
     </div>
 </div>
-@stop
+@endsection

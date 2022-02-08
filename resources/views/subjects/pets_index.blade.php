@@ -2,7 +2,7 @@
 
 @extends('layouts.app')
 
-<!-- Specify content -->
+<!-- Script -->
 @section('script')
 <script>
     $(document).ready( function () {
