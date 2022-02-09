@@ -19,9 +19,7 @@
             {"data":"Email"},            
             {"data":"Roles"},
             {"data":"Description"},
-            {"data":"Pet_Names"},
-            {"data":"Species"},
-            {"data":"Dob"},
+            {"data":"Pets"},           
             {"data":"Actions"},
 
 
@@ -78,9 +76,7 @@
                     <th width='10%'>Email</th>
                     <th width='10%'>Roles</th>                
                     <th width='10%'>Description</th>
-                    <th width='10%'>Pet Names</th>  
-                    <th width='10%'>Species</th> 
-                    <th width='10%'>Dob</th>                     
+                    <th width='10%'>Pets</th>                                   
                     <th width='10%'>Actions</th>          
                 
                 </tr>

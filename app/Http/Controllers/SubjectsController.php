@@ -150,10 +150,8 @@ class SubjectsController extends Controller
             1=>'Email',            
             2=>'Roles',          
             3=>'Description',
-            4=>'Pet_Names',
-            5=>'Speciees',
-            6=>'Dob',
-            7=>'Actions',
+            4=>'Pets',            
+            5=>'Actions',
 
             
         );        
@@ -205,35 +203,63 @@ class SubjectsController extends Controller
             $nestedData['Email']=$subject->email;
 
             // dd ($subject->roles);
-            $count = 0;
-            foreach ($subject->roles as $role){
+            // $count = 0;
+            // foreach ($subject->roles as $role){
                 
                  
-                $nestedData['Roles'][$count++]=$role->name;
-            }
+            //     $nestedData['Roles'][$count++]=$role->name;
+            // }
 
-            $nestedData['Description']=$subject->description;
+            // $nestedData['Description']=$subject->description;
 
             
-             $count2 =0;
-            foreach ($subject->pets as $pets){
+            //  $count2 =0;
+            // foreach ($subject->pets as $pets){
                 
-                //  dd ($pets->names->name);
+            //     //  dd ($pets->names->name);
                 
-                $nestedData['Pet_Names'][$count2++]=$pets->names->name;
+            //     $nestedData['Pet_Names'][$count2++]=$pets->names->name;
+                
+            //  }
+
+            //  $count3=0;
+            //  foreach ($subject->pets as $pets){
+            //     // dd ($pets->species->name);
+            //     $nestedData['Species'][$count3++]=$pets->species->name;
+            //  }
+
+            //  $count4=0;
+            //  foreach ($subject->pets as $pets){
+            //     $nestedData['Dob'][$count4++]=$pets->dob;
+            // }  
+            $arr1=[];
+            foreach ($subject->roles as $role){
+
+                $arr1[]=$role->name;
+                 
+              
+            }
+            
+
+
+            $nestedData['Description']=$subject->description;
+            $nestedData['Roles']=$arr1;
+
+            
+            $arr2=[];
+
+            foreach ($subject->pets as $pets){             
+                
+                
+                $arr2[]=[$pets->names->name,$pets->dob,$pets->species->name];
+                
                 
              }
 
-             $count3=0;
-             foreach ($subject->pets as $pets){
-                // dd ($pets->species->name);
-                $nestedData['Species'][$count3++]=$pets->species->name;
-             }
+             $nestedData['Pets']=$arr2;
 
-             $count4=0;
-             foreach ($subject->pets as $pets){
-                $nestedData['Dob'][$count4++]=$pets->dob;
-            }  
+             
+            
 
             $nestedData['Actions']="
             <a style='' href='' class='btn btn-sm btn-info'>Edit</a>                        
