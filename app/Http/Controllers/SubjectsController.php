@@ -143,6 +143,114 @@ class SubjectsController extends Controller
         return redirect()->route('subjects');
     }
 
+    public function subjects_datatable(Request $request)
+    {           
+        $column = array(
+            0=>'Name',
+            1=>'Email',            
+            2=>'Roles',          
+            3=>'Description',
+            4=>'Pet_Names',
+            5=>'Speciees',
+            6=>'Dob',
+            7=>'Actions',
+
+            
+        );        
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $search = $request->input('search.value');
+        $order = $column[$request->input('order.0.column')];
+        $dir   = $request->input('order.0.dir');
+        $draw = $request->input('draw');
+
+        // $data = $pets = Pets::select('id','dob','user_id','species_id','name_id',); 
+        $data = $subjects = User::select('id','name','email','description',);      
+        
+        $totalData = $data->count();
+        $totalFiltered = $totalData;
+
+        if (isset($search)) {               
+            $data->orWhere('name','LIKE',"%{$search}%");
+            $totalFiltered = $data->count();
+        }
+
+        $data = $data->offset($start)
+        ->limit($limit)
+        ->get();
+
+        $array = [];
+        // foreach ($data as $item) {
+        //     $array['customer'] = $transaction->user->first_name.' '.$transaction->user->last_name;
+        //     $action = '';
+        //     if () {
+        //         $action .= '<a href="'.asset('storage/'.$file->file_location).'" download>Download</a>';
+        //     }
+        //     $array['action'] = $action;
+        // }
+
+        foreach ($data as $subject) {
+
+            // 0=>'Name',
+            // 1=>'Email',            
+            // 2=>'Roles',          
+            // 3=>'Description',
+            // 4=>'Pet_Names',
+            // 5=>'Speciees',
+            // 6=>'Dob',
+            // 7=>'Actions',
+
+ 
+            $nestedData['Name']=$subject->name;
+            $nestedData['Email']=$subject->email;
+
+            // dd ($subject->roles);
+            $count = 0;
+            foreach ($subject->roles as $role){
+                
+                 
+                $nestedData['Roles'][$count++]=$role->name;
+            }
+
+            $nestedData['Description']=$subject->description;
+
+            
+             $count2 =0;
+            foreach ($subject->pets as $pets){
+                
+                //  dd ($pets->names->name);
+                
+                $nestedData['Pet_Names'][$count2++]=$pets->names->name;
+                
+             }
+
+             $count3=0;
+             foreach ($subject->pets as $pets){
+                // dd ($pets->species->name);
+                $nestedData['Species'][$count3++]=$pets->species->name;
+             }
+
+             $count4=0;
+             foreach ($subject->pets as $pets){
+                $nestedData['Dob'][$count4++]=$pets->dob;
+            }  
+
+            $nestedData['Actions']="
+            <a style='' href='' class='btn btn-sm btn-info'>Edit</a>                        
+            <a href='' class='btn btn-sm btn-danger'>Delete</a>
+            ";
+            $array[]=$nestedData;       
+        }
+        // ini juga fix
+        $json_data = [
+            'draw' => intval($draw),
+            'recordsTotal' => intval($totalData),
+            'recordsFiltered' => intval($totalFiltered),
+            'data' => $array,            
+        ];
+        // ini juga fix
+        return json_encode($json_data);
+    }
 
     
 }

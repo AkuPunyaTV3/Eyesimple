@@ -17,7 +17,7 @@ class Pets_names extends Model
 
     public function pets()
     {
-        return $this->hasMany('App\Pets','name_id','id');        
+        return $this->hasMany('App\Pets','pets_names','name_id','id');        
     }
 
     

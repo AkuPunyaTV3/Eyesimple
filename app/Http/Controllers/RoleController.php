@@ -119,6 +119,11 @@ class RoleController extends Controller
             $totalFiltered = $data->count();
         }
 
+        if (isset($dropdown)) {               
+            $data->orWhere('name','LIKE',"%{$dropdown}%");
+            $totalFiltered = $data->count();
+        }
+
         $data = $data->offset($start)
         ->limit($limit)
         ->get();

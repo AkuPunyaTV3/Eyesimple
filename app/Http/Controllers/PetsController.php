@@ -21,9 +21,10 @@ class PetsController extends Controller
     public function index()
     {
         $pets = Pets::select('id','dob','user_id','species_id','name_id',)->get(); 
+        $species = Species::select('id','name',)->get();
         // $species = Species::select('id','name',)->get();  
         // $users = User::select('id','name', 'email', 'password','description',)->get();  
-		return view('subjects.pets_index')->with('pets',$pets);
+		return view('subjects.pets_index')->with('pets',$pets)->with('species',$species);
     }
 
     public function index_petsname()
@@ -173,6 +174,7 @@ class PetsController extends Controller
         $limit = $request->input('length');
         $start = $request->input('start');
         $search = $request->input('search.value');
+        $dropdown =$request->input('filter_option');
         $order = $column[$request->input('order.0.column')];
         $dir   = $request->input('order.0.dir');
         $draw = $request->input('draw');
@@ -183,7 +185,27 @@ class PetsController extends Controller
         $totalFiltered = $totalData;
 
         if (isset($search)) {            
-            $data->orWhere('species_id','LIKE',"%{$search}%");
+            $data->orWhere('dob','LIKE',"%{$search}%");
+
+            $petsnames = Pets_names::orwhere('name','LIKE',"%{$search}%")->get();
+            foreach($petsnames as $petname){
+                $data->orwhere('name_id','LIKE',"%{$petname->id}%");
+            }
+
+            $users = User::orwhere('name','LIKE',"%{$search}%")->get();
+            foreach($users as $user){
+                $data->orwhere('name_id','LIKE',"%{$user->id}%");
+            }
+
+            $species = Species::orwhere('name','LIKE',"%{$search}%")->get();
+            foreach($species as $species){
+                $data->orwhere('name_id','LIKE',"%{$species->id}%");
+            } 
+
+            $totalFiltered = $data->count();
+        }
+        if (isset($dropdown)) {                  
+            $data->orWhere('species_id','LIKE',"%{$dropdown}%");
             $totalFiltered = $data->count();
         }
 
@@ -232,6 +254,7 @@ class PetsController extends Controller
             2=>'Action',          
         );        
         $limit = $request->input('length');
+        $dropdown =$request->input('filter_option');        
         $start = $request->input('start');
         $search = $request->input('search.value');
         $order = $column[$request->input('order.0.column')];
@@ -243,8 +266,13 @@ class PetsController extends Controller
         $totalData = $data->count();
         $totalFiltered = $totalData;
 
-        if (isset($search)) {               
+        if (isset($search)) {                           
             $data->orWhere('name','LIKE',"%{$search}%");
+            $totalFiltered = $data->count();
+        }
+
+        if (isset($dropdown)) {                  
+            $data->orWhere('name','LIKE',"%{$dropdown}%");
             $totalFiltered = $data->count();
         }
 

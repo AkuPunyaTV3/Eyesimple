@@ -2,7 +2,42 @@
 
 @extends('layouts.app')
 
-<!-- Specify content -->
+<!-- Script -->
+@section('script')
+<script>
+    $(document).ready( function () {
+    $('#example').DataTable({
+        serverSide: true,
+        ajax: {
+            'url': 'subjects',
+            'type': 'POST',
+            
+            'data':{_token:"{{ csrf_token()}}"},
+        },
+        columns:[
+            {"data":"Name"},
+            {"data":"Email"},            
+            {"data":"Roles"},
+            {"data":"Description"},
+            {"data":"Pet_Names"},
+            {"data":"Species"},
+            {"data":"Dob"},
+            {"data":"Actions"},
+
+
+            // <th width='10%'>Name</th>
+            //         <th width='10%'>Email</th>
+            //         <th width='10%'>Roles</th>                
+            //         <th width='10%'>Description</th>
+            //         <th width='10%'>Pet Names</th>  
+            //         <th width='10%'>Species</th> 
+            //         <th width='10%'>Dob</th>                     
+            //         <th width='10%'>Actions</th>           
+        ],
+    });
+} );
+</script>
+@endsection
 @section('content')
 
 
@@ -36,7 +71,7 @@
         </div>
 
 
-        <table class="table" >
+        <table id=example >
             <thead>
                 <tr>
                     <th width='10%'>Name</th>
@@ -51,22 +86,14 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($subjects as $subject)
+            {{-- @foreach($subjects as $subject)
                 <tr>                     
                     <td>{{ $subject->name }}</td>
-                    {{-- @php
-                    dd ($subject->roles);    
-                    @endphp --}}
                     
-                    {{-- @php
-                    dd ($subject->roles);
-                    @endphp --}}
 
                     <td>{{ $subject->email }}</td>
 
-                    {{-- @php
-                            dd ($subject);
-                        @endphp --}}
+                   
                     <td>
                     @foreach ($subject->roles as $role)
                         
@@ -96,14 +123,14 @@
                         @endforeach
                     </td>
                     <td>
-                        <!-- Edit -->                        
+                                              
                         <a style="" href="{{ route('subjects.edit',[$subject->id]) }}" class="btn btn-sm btn-info">Edit</a>
-                        <!-- Delete -->
+                   
                         <a href="{{ route('subjects.delete',$subject->id) }}" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
                 <tr>
-                    {{-- <thead>
+                     <thead>
                     <th width='20%'>Pet Names</th>  
                     <th width='20%'>Species</th> 
                     <th width='20%'>Dob</th>  
@@ -129,7 +156,7 @@
                     </td>
                     
                     </tbody>
-                         --}}
+                         
 
                     
                 </tr>
@@ -137,7 +164,7 @@
                
                 </tr>
                 
-            @endforeach
+            @endforeach --}}
             </tbody>
         </table>
 
@@ -146,4 +173,4 @@
             
     </div>
 </div>
-@stop
+@endsection

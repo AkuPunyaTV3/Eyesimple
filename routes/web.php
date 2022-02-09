@@ -82,6 +82,8 @@ Route::get('/pets/create_petnames', 'PetsController@create_petnames')->name('pet
 Route::post('/pets/store_petnames', 'PetsController@store_petnames')->name('pets.store_petsname');
 
 //DATA TABLE
+//Subjects
+Route::post('subjects', 'SubjectsController@subjects_datatable')->name('subjects');
 //roles
 Route::post('roles/roles_datatable', 'RoleController@roles_datatable')->name('roles_datatable');
 //pets
@@ -90,6 +92,7 @@ Route::post('pets_datatable', 'PetsController@pets_datatable')->name('pets_datat
 Route::post('pets_datatable_species', 'PetsController@pets_datatable_species')->name('pets_datatable_species');
 //petsname
 Route::post('pets_datatable_petsname', 'PetsController@pets_datatable_petsname')->name('pets_datatable_petsname');
+
 
 
 
