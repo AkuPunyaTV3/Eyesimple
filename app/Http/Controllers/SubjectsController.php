@@ -215,7 +215,7 @@ class SubjectsController extends Controller
             $nestedData['Roles']=$arr1;  
             $arr2=[];
             foreach ($subject->pets as $pets){             
-                $arr2[]=[$pets->names->name,$pets->dob,$pets->species->name]; 
+                $arr2[]=[$pets->species->name,$pets->names->name,$pets->dob]; 
             }
             $nestedData['Pets']=$arr2;
             $nestedData['Actions']="

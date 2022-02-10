@@ -49,13 +49,13 @@
 
 
 
-<div style="margin-left: 20px;">
+<div style="margin-left: 10px;">
     
     <h3>&nbsp;User List</h3>
 </div>
    
 <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-15 col-sm-15 col-xs-15">
 
         <!-- Alert message (start) -->
         @if(Session::has('message'))
@@ -91,12 +91,12 @@
         <table id=example >
             <thead>
                 <tr>
-                    <th width='10%'>Name</th>
-                    <th width='10%'>Email</th>
-                    <th width='10%'>Roles</th>                
-                    <th width='10%'>Description</th>
-                    <th width='10%'>Pets</th>                                   
-                    <th width='10%'>Actions</th>          
+                    <th width='5%'>Name</th>
+                    <th width='5%'>Email</th>
+                    <th width='5%'>Roles</th>                
+                    <th width='5%'>Description</th>
+                    <th width='15%'>Pets</th>                                   
+                    <th width='5%'>Actions</th>          
                 
                 </tr>
             </thead>

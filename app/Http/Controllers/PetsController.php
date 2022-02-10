@@ -194,12 +194,12 @@ class PetsController extends Controller
 
             $users = User::orwhere('name','LIKE',"%{$search}%")->get();
             foreach($users as $user){
-                $data->orwhere('name_id','LIKE',"%{$user->id}%");
+                $data->orwhere('user_id','LIKE',"%{$user->id}%");
             }
 
             $species = Species::orwhere('name','LIKE',"%{$search}%")->get();
             foreach($species as $species){
-                $data->orwhere('name_id','LIKE',"%{$species->id}%");
+                $data->orwhere('species_id','LIKE',"%{$species->id}%");
             } 
 
             $totalFiltered = $data->count();
