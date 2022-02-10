@@ -11,15 +11,17 @@ use Illuminate\Support\Facades\Hash;
 
 use App\User;
 use App\Roles;
+use App\Species;
     
 class SubjectsController extends Controller
 {
 	public function index(){
 
-		$subjects = User::select('id','name','email','description',)->get();    
+		$subjects = User::select('id','name','email','description',)->get();  
+        $roles = Roles::select('id','name')->get();
         
 
-		return view('subjects.index')->with('subjects',$subjects);
+		return view('subjects.index')->with('subjects',$subjects)->with('roles',$roles);
 	}
 
     public function role(){
@@ -170,6 +172,20 @@ class SubjectsController extends Controller
 
         if (isset($search)) {               
             $data->orWhere('name','LIKE',"%{$search}%");
+            $data->orWhere('email','LIKE',"%{$search}%");
+            $data->orWhere('description','LIKE',"%{$search}%");
+            
+
+            $roles = Roles::orwhere('name','LIKE',"%{$search}%")->get();
+            foreach($roles as $roles){
+                $data->orwhere('name','LIKE',"%{$roles->name}%");
+            } 
+            $totalFiltered = $data->count();
+        }
+
+        if (isset($dropdown)) {      
+                  
+            $data->orWhere('role','LIKE',"%{$dropdown}%");
             $totalFiltered = $data->count();
         }
 
@@ -189,81 +205,22 @@ class SubjectsController extends Controller
 
         foreach ($data as $subject) {
 
-            // 0=>'Name',
-            // 1=>'Email',            
-            // 2=>'Roles',          
-            // 3=>'Description',
-            // 4=>'Pet_Names',
-            // 5=>'Speciees',
-            // 6=>'Dob',
-            // 7=>'Actions',
-
- 
             $nestedData['Name']=$subject->name;
-            $nestedData['Email']=$subject->email;
-
-            // dd ($subject->roles);
-            // $count = 0;
-            // foreach ($subject->roles as $role){
-                
-                 
-            //     $nestedData['Roles'][$count++]=$role->name;
-            // }
-
-            // $nestedData['Description']=$subject->description;
-
-            
-            //  $count2 =0;
-            // foreach ($subject->pets as $pets){
-                
-            //     //  dd ($pets->names->name);
-                
-            //     $nestedData['Pet_Names'][$count2++]=$pets->names->name;
-                
-            //  }
-
-            //  $count3=0;
-            //  foreach ($subject->pets as $pets){
-            //     // dd ($pets->species->name);
-            //     $nestedData['Species'][$count3++]=$pets->species->name;
-            //  }
-
-            //  $count4=0;
-            //  foreach ($subject->pets as $pets){
-            //     $nestedData['Dob'][$count4++]=$pets->dob;
-            // }  
+            $nestedData['Email']=$subject->email; 
+            $nestedData['Description']=$subject->description;
             $arr1=[];
             foreach ($subject->roles as $role){
-
                 $arr1[]=$role->name;
-                 
-              
-            }
-            
-
-
-            $nestedData['Description']=$subject->description;
-            $nestedData['Roles']=$arr1;
-
-            
+            }            
+            $nestedData['Roles']=$arr1;  
             $arr2=[];
-
             foreach ($subject->pets as $pets){             
-                
-                
-                $arr2[]=[$pets->names->name,$pets->dob,$pets->species->name];
-                
-                
-             }
-
-             $nestedData['Pets']=$arr2;
-
-             
-            
-
+                $arr2[]=[$pets->names->name,$pets->dob,$pets->species->name]; 
+            }
+            $nestedData['Pets']=$arr2;
             $nestedData['Actions']="
-            <a style='' href='' class='btn btn-sm btn-info'>Edit</a>                        
-            <a href='' class='btn btn-sm btn-danger'>Delete</a>
+            <a style='' href='{{ route('subjects.edit',[$subject->id]) }}' class='btn btn-sm btn-info'>Edit</a>      
+            <a href='{{ route('subjects.delete',$subject->id) }}' class='btn btn-sm btn-danger'>Delete</a>
             ";
             $array[]=$nestedData;       
         }

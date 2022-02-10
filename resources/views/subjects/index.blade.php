@@ -6,13 +6,17 @@
 @section('script')
 <script>
     $(document).ready( function () {
-    $('#example').DataTable({
+    var x=$('#example').DataTable({
         serverSide: true,
         ajax: {
             'url': 'subjects',
             'type': 'POST',
-            
-            'data':{_token:"{{ csrf_token()}}"},
+            "data": function (d) {
+                    return $.extend({}, d, {
+                        "filter_option": $("#categoryfilter").val(),
+                        _token: "{{csrf_token()}}"
+                    });
+                }
         },
         columns:[
             {"data":"Name"},
@@ -33,6 +37,11 @@
             //         <th width='10%'>Actions</th>           
         ],
     });
+
+    $("#example_filter.dataTables_filter").append($("#categoryfilter"));       
+    $("#categoryfilter").change(function () {
+        x.draw();
+    });  
 } );
 </script>
 @endsection
@@ -68,6 +77,16 @@
             <a class='btn btn-info float-right' href="{{route('pets')}}" style="margin-right: ">Pets</a>                        
         </div>
 
+        <div class="category-filter">
+            <select id="categoryfilter" class="form-control">
+                <option value="">Show All</option>
+                @foreach ($roles as $roles)
+                
+                <option value={{ $roles->name }}>{{ $roles->name }}</option>
+                
+                @endforeach
+            </select>
+        </div>
 
         <table id=example >
             <thead>

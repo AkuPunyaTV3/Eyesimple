@@ -272,7 +272,7 @@ class PetsController extends Controller
         }
 
         if (isset($dropdown)) {                  
-            $data->orWhere('name','LIKE',"%{$dropdown}%");
+            $data->orWhere('name','like',"%{$dropdown}%");
             $totalFiltered = $data->count();
         }
 

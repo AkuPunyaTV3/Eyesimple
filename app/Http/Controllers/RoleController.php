@@ -140,15 +140,15 @@ class RoleController extends Controller
 
         foreach ($data as $roles) {
             
-            $nestedData['Roles']=$roles->name;   
+            $nestedData['Roles']=$roles->name;  
 
             $count = 0;
+            $arr1=[];
             foreach ($roles->users as $subjects)
-                    {
-                        
-                        $nestedData['User'][$count++]=$subjects->name;
+                    {                        
+                        $arr1[]=$subjects->name;
                     }
-
+                    $nestedData['User']=$arr1;
             $nestedData['Action']="
             <a style='' href='' class='btn btn-sm btn-info'>Edit</a>                        
             <a href='' class='btn btn-sm btn-danger'>Delete</a>

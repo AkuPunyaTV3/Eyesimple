@@ -11,7 +11,6 @@
             ajax: {
                 'url': 'pets_datatable',
                 'type': 'POST',
-
                 "data": function (d) {
                     return $.extend({}, d, {
                         "filter_option": $("#categoryfilter").val(),
